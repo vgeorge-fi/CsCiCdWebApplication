@@ -17,8 +17,8 @@ jobs:
           uses: azure/docker-login@v1
           with:
             login-server: vgeorge.azurecr.io
-            username: ${{ secrets.SP_ID }}
-            password: ${{ secrets.SP_SECRET }}
+            username: ${{ secrets.ACR_USERNAME }}
+            password: ${{ secrets.ACR_PASSWORD }}
         - run: |
             docker build . -t vgeorge.azurecr.io/cscicdwebapplication:${{ github.sha }}
             docker push vgeorge.azurecr.io/cscicdwebapplication:${{ github.sha }}
