@@ -23,3 +23,15 @@ jobs:
       - run: |
           docker build . -t vgeorge.azurecr.io/cscicdwebapplication:${{ github.sha }}
           docker push vgeorge.azurecr.io/cscicdwebapplication:${{ github.sha }}
+      
+      - name: 'Deploy to Azure Container Instances'
+        uses: 'azure/aci-deploy@v1'
+        with:
+            resource-group: ${{ secrets.RESOURCE_GROUP }}
+            dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
+            image: vgeorge.azurecr.io/cscicdwebapplication:${{ github.sha }}
+            registry-login-server: vgeorge.azurecr.io
+            registry-username: ${{ secrets.REGISTRY_USERNAME }}
+            registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+            name: cscicdwebapplication
+            location: 'east us'
