@@ -22,10 +22,9 @@ jobs:
         registry: https://vgeorge.azurecr.io/
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
-
     - run: |
-      docker build . -t vgeorge.azurecr.io/cscicdwebapplication:${{ github.sha }}
-      docker push vgeorge.azurecr.io/cscicdwebapplication:${{ github.sha }}
+        docker build . -t vgeorge.azurecr.io/cscicdwebapplication:${{ github.sha }}
+        docker push vgeorge.azurecr.io/cscicdwebapplication:${{ github.sha }}
 
   deploy:
     runs-on: ubuntu-latest
