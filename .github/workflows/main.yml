@@ -42,6 +42,8 @@ jobs:
       uses: azure/login@v1
       with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
+            username: ${{ secrets.REGISTRY_USERNAME }}
+            password: ${{ secrets.REGISTRY_PASSWORD }}
             
     - name: 'Deploy to Azure Container Instances'
       uses: 'azure/aci-deploy@v1'
