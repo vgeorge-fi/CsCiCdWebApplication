@@ -19,7 +19,7 @@ jobs:
     - name: Log in to registry
       uses: docker/login-action@v1
       with:
-        registry: https://acr03112022.azurecr.io/
+        registry: https://vgeorge.azurecr.io/
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
 
@@ -27,25 +27,25 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: acr03112022.azurecr.io/${{ secrets.SP_USERNAME }}/helloworld:${{ github.sha }}
+        tags: vgeorge.azurecr.io/cscicdwebapplication:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
     steps:
     - name: 'Login Azure CLI'
-          uses: azure/login@v1
-          with:
-            creds: ${{ secrets.SP_CREDENTIALS }}
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.SP_CREDENTIALS }}
 
     - name: 'Deploy Container'
-          uses: 'azure/aci-deploy@v1'
-          with:
-            resource-group: rg.containers
-            dns-name-label: cscicdwebapplication-${{ github.run_number }}
-            image: vgeorge.azurecr.io/cscicdwebapplication:${{ github.sha }}
-            registry-login-server: vgeorge.azurecr.io
-            registry-username: ${{ secrets.SP_ID }}
-            registry-password: ${{ secrets.SP_SECRET }}
-            name: cscicdwebapplication
-            location: 'east us'
+      uses: 'azure/aci-deploy@v1'
+      with:
+        resource-group: rg.containers
+        dns-name-label: cscicdwebapplication-${{ github.run_number }}
+        image: vgeorge.azurecr.io/cscicdwebapplication:${{ github.sha }}
+        registry-login-server: vgeorge.azurecr.io
+        registry-username: ${{ secrets.SP_ID }}
+        registry-password: ${{ secrets.SP_SECRET }}
+        name: cscicdwebapplication
+        location: 'east us'
