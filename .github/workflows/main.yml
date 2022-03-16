@@ -28,7 +28,7 @@ jobs:
           uses: 'azure/aci-deploy@v1'
           with:
             resource-group: ${{ secrets.RESOURCE_GROUP }}
-            dns-name-label: ${{ secrets.REGISTRY_USERNAME }}${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
+            dns-name-label: cscicdwebapplication-${{ github.run_number }}
             image: vgeorge.azurecr.io/cscicdwebapplication:${{ github.sha }}
             registry-login-server: vgeorge.azurecr.io
             registry-username: ${{ secrets.REGISTRY_USERNAME }}
