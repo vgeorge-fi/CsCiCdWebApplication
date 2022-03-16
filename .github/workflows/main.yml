@@ -23,12 +23,9 @@ jobs:
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
 
-    - name: Build and push container image to registry
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        tags: vgeorge.azurecr.io/cscicdwebapplication:${{ github.sha }}
-        file: ./Dockerfile
+    - run: |
+      docker build . -t vgeorge.azurecr.io/cscicdwebapplication:${{ github.sha }}
+      docker push vgeorge.azurecr.io/cscicdwebapplication:${{ github.sha }}
 
   deploy:
     runs-on: ubuntu-latest
